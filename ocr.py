@@ -16,8 +16,9 @@ def extract_text_from_pdf(pdf_file: str) -> str:
 
 def extract_text(f_name: str) -> str:
     dir_m = os.getcwd()
-    input_path = dir_m + f"/input-pdfs/{f_name}"
-    temp_path = dir_m + f"/temp/{f_name}"
+    input_path = os.path.join(dir_m, "input-pdfs", f_name)
+    temp_path = os.path.join(dir_m, "temp", f_name)
+
     text = extract_text_from_pdf(input_path)
     if text == '':
         ocrmypdf.ocr(input_path, temp_path, language='rus')

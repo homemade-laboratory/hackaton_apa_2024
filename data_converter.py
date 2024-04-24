@@ -1,3 +1,4 @@
+import os
 import ast
 import json
 
@@ -19,6 +20,16 @@ def formatted_str(feature_dict: dict) -> str:
     feature_text = feature_text[:-2]
     feature_text += "\n}"
     return feature_text
+
+
+def create_folders() -> None:
+    dir_m = os.getcwd()
+    input_path = os.path.join(dir_m, "input-pdfs")
+    temp_path = os.path.join(dir_m, "temp")
+
+    for folder in [input_path, temp_path]:
+        if not os.path.exists(folder):
+            os.makedirs(folder)
 
 
 def main() -> None:

@@ -17,7 +17,7 @@ from telegram.ext import (
 )
 from ocr import extract_text
 from post_processing import generate_response
-from data_converter import text_to_dict, dict_to_json, formatted_str
+from data_converter import text_to_dict, dict_to_json, formatted_str, create_folders
 from io import BytesIO
 from config import TOKEN
 
@@ -40,6 +40,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     document = update.message.document
+    create_folders()
     if document.mime_type == 'application/pdf':
         file = await context.bot.get_file(document.file_id)
         await file.download_to_drive("input-pdfs/{}".format(document.file_name))

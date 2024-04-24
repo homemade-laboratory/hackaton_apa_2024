@@ -1,10 +1,13 @@
 from openai import OpenAI
 from config import API_KEY
+import re
 
 client = OpenAI(api_key=API_KEY)
 
 
 def generate_response(text: str) -> str:
+    cleaned_text = clean_text(text)
+
     completion = client.chat.completions.create(model="gpt-3.5-turbo",
     messages=[{"role": "system", "content": "You are a helpful assistant."},
               {"role": "user", "content": "Попробуй извлечь фичи товара из этого текста, текст был распознан "
@@ -16,9 +19,14 @@ def generate_response(text: str) -> str:
                                           "характеристики, а также пропускай данные в которых неуверен. "
                                           "Если текст сложный и ничего не удается распознать, верни пустой словарь {}"},
               {"role": "assistant", "content": "Конечно, пришли текст, и я постараюсь извлечь фичи товара."},
-              {"role": "user", "content": text}
+              {"role": "user", "content": cleaned_text}
               ])
     return completion.choices[0].message.content
+
+
+def clean_text(text:str) -> str:
+    cleaned_text = text.replace("'", '"')
+    return cleaned_text
 
 
 def main() -> None:
