@@ -171,7 +171,7 @@ async def handle_name_input(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 async def handle_feature_edit(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     text = update.message.text
     key_new = text.split(":")[0]
-    value = text.split(":")[0].strip()
+    value = text.split(":")[1].strip()
 
     query = context.user_data.get("temp_query")
 
