@@ -22,11 +22,11 @@ def extract_text(f_name: str) -> str:
     text = extract_text_from_pdf(input_path)
     if text == '':
         ocrmypdf.ocr(input_path, temp_path, language='rus')
-        extracted_text = extract_text_from_pdf(temp_path)
-        os.remove(temp_path)
     else:
-        extracted_text = extract_text_from_pdf(input_path)
-        # os.remove(input_path)
+        ocrmypdf.ocr(input_path, temp_path, language='rus', force_ocr=True)
+    extracted_text = extract_text_from_pdf(temp_path)
+    os.remove(temp_path)
+    # os.remove(input_path)
     return extracted_text
 
 
